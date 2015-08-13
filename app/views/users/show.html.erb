@@ -1,0 +1,27 @@
+<% provide(:title, 'My profile') %>
+<div>
+  <% if @user.admin? && current_user?(@user) %>
+    <p >Logged in as admin </p>
+  <% end %>
+</div>
+<div class="user-profile">
+  <ul>
+    <li>Name:  <%= @user.name %></p></li>
+    <li>Email:  <%=  @user.email %></li>
+    <li><%= image_tag @user.picture.url if @user.picture?  %></li>
+  </ul>
+</div>
+
+<% if current_user?(@user) %>
+  <div class="create_prod_button">
+  <%= button_to "Create Product", new_product_path, :class => "btn btn-primary btn-lg", :method => :get  %><br />
+  </div>
+  <p class="prod_header">My Products </p>
+<% else %>
+  <p class="prod_header">Products </p>
+<% end %>
+
+
+<div class="feed">
+  <%= render 'shared/feed' %>
+</div>

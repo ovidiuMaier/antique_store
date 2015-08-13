@@ -1,0 +1,17 @@
+<div class="feed_product">
+  <li id="<%= product.id %>">
+    <span><%= image_tag product.image_url if product.image_url? %></span>
+    <span class="title"><%= product.title %></span>
+    <span class="price"> | <%= number_to_currency(product.price) %></span>
+    <span class="timestamp">
+      | Posted <%= time_ago_in_words(product.created_at) %> ago
+      <% if current_user?(product.user) %>
+        | <%= link_to 'View', product_path(product), :class => 'action_button'%>
+        | <%= link_to 'Edit', edit_product_path(product), :class => 'action_button' %>
+        | <%= link_to 'Delete', product_path(product), :method => :delete, data: { :confirm => "Are you sure?" }, :class => 'action_button' %>
+      <% else %>
+        | <%= link_to 'View', product_path(product), :class => 'action_button'%>
+      <% end %>
+    </span>
+  </li>
+</div>

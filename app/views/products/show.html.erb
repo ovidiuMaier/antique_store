@@ -1,0 +1,15 @@
+<div class="show_product">
+  <% provide(:title, @product.title) %>
+  <div class="product_attribute">
+    <ul>
+      <li>Product:  <%= @product.title %></p></li>
+      <li>Description:  <%=  @product.description %></li>
+      <li><%= image_tag @product.image_url if @product.image_url? %></li>
+      <li>Price:  <%= number_to_currency(@product.price) %></li>
+    </ul>
+    <% if current_user?(@product.user) %>
+      <%= link_to 'Edit', edit_product_path(@product), :class => 'action_button' %>
+      <%= link_to 'Delete', product_path(@product), :method => :delete, data: { :confirm => "Are you sure?" }, :class => 'action_button' %>
+    <% end %>
+  </div>
+</div>

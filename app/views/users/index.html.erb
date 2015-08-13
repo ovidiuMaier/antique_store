@@ -1,0 +1,16 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<div class="pagination">
+  <%= will_paginate %>
+</div>
+
+<div>
+<ul class="users">
+  <%= render @users.order('updated_at DESC') %>
+</ul>
+</div>
+
+<div class="pagination">
+  <%= will_paginate %>
+</div>
