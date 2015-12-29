@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: [:index, :show,  :edit, :new, :create, :update, :destroy]
 
   # GET /carts
   # GET /carts.json

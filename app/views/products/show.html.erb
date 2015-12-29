@@ -6,6 +6,7 @@
       <li>Description:  <%=  @product.description %></li>
       <li><%= image_tag @product.image_url if @product.image_url? %></li>
       <li>Price:  <%= number_to_currency(@product.price) %></li>
+      <li><%= button_to 'Add to Cart', line_items_path(product_id: @product), :class => 'action_button'%></li>
     </ul>
     <% if current_user?(@product.user) %>
       <%= link_to 'Edit', edit_product_path(@product), :class => 'action_button' %>
