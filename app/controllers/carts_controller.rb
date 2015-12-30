@@ -63,7 +63,6 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
     respond_to do |format|
       format.html {
-        flash[:warning] = "Your cart is currently empty"
         redirect_to products_url
         }
       format.json { head :no_content }
