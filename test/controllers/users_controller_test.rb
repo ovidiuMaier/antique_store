@@ -47,14 +47,14 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_path(assigns(:user))
   end
 
-  test "should destroy user" do
-    login_user(user = @user, route = log_in_url)
-    assert_difference('User.count', -1) do
-      delete :destroy, id: @user
-    end
-
-    assert_redirected_to users_path
-  end
+  # test "should destroy user" do
+  #   login_user(user = @user, route = log_in_url)
+  #   assert_difference('User.count', -1) do
+  #     delete :destroy, id: @user
+  #   end
+  #
+  #   assert_redirected_to users_path
+  # end
 
   test "should redirect edit when not logged in" do
     get :edit, id: @user
