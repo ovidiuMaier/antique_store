@@ -2,8 +2,10 @@
 <% provide(:title, 'All products') %>
 <h1 class="prod_h1">All products</h1>
 <div class="col-md-4" id="cart">
-    <%= hidden_div_if(@cart.line_items.empty?) do %>
-      <%= render @cart %>
+    <% if @cart %>
+      <%= hidden_div_if(@cart.line_items.empty?) do %>
+        <%= render @cart %>
+      <% end %>
     <% end %>
 </div>
 <div class="col-md-8">
