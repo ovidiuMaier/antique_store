@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   before_action :require_login, only: [:create, :destroy, :edit]
   before_action :correct_user, only: [:destroy, :edit]
+  include CurrentCart
+  before_action :set_cart
 
   def index
     @products = Product.all
