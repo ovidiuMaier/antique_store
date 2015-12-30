@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login, only: [:index, :show,  :edit, :new, :create, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
   # GET /carts.json
@@ -43,7 +44,10 @@ class CartsController < ApplicationController
   def update
     respond_to do |format|
       if @cart.update(cart_params)
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
+        format.html {
+          flash[:success] = "Cart was successfully updated."
+          redirect_to @cart
+          }
         format.json { render :show, status: :ok, location: @cart }
       else
         format.html { render :edit }
@@ -55,9 +59,13 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart.destroy
+    @cart.destroy if @cart.id == session[:cart_id]
+    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
+      format.html {
+        flash[:warning] = "Your cart is currently empty"
+        redirect_to products_url
+        }
       format.json { head :no_content }
     end
   end
@@ -71,5 +79,11 @@ class CartsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
       params[:cart]
+    end
+
+    def invalid_cart
+      logger.error "Attempt to access invalid cart #{params[:id]}"
+      flash[:warning] = 'Invalid cart'
+      redirect_to root_url
     end
 end
